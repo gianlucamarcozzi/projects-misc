@@ -3,7 +3,7 @@ clearvars
 %% IMPORT
 
 generalFolder = "../data/raw/";
-expName = "misc001-E-002";
+expName = "misc-E-002002/";
 measFolder = generalFolder + expName;
 
 [x00, y0, Param0] = loadfolderelexsys(measFolder, '*1.DTA');
@@ -75,7 +75,7 @@ yshift = -2000;
 figure(1)
 clf
 tiledlayout("flow", "TileSpacing", "compact", "Padding", "compact") 
-for ii = 32:51
+for ii = 2:21
     nexttile
     plot(x0, real(y{ii}), 'o-')
     hold on
@@ -152,9 +152,9 @@ savefigas(gcf, "../images/misc001-E-002_04_echoesPhaseCorrected.png")
 
 figure(4)
 clf
-plot(pulseAmp, magnitude, 'o-')
+plot(1:numel(magnitude), magnitude, 'o-')
 yyaxis right
-plot(pulseAmp, magnitudes, 'o-') % Fits are not perfect at large amplitudes
+plot(1:numel(magnitude), magnitudes, 'o-') % Fits are not perfect at large amplitudes
 
 %% RABI FIT cosine
 
@@ -237,8 +237,8 @@ for ii = 32:nMeas
     plot(x2, yfitri{ii} + yshift)
     title(sprintf('%d: %.4f MHz, %.2f ns', ...
           ii, pfitri{ii}(2)*1e3, 1/2/pfitri{ii}(2)))
-    plotText = sprintf("%.2f", pulseAmp(ii));
-    text(gca, 0.8, 0.8, plotText{end}, 'Units', 'normalized')
+    % plotText = sprintf("%.2f", pulseAmp(ii));
+    % text(gca, 0.8, 0.8, plotText{end}, 'Units', 'normalized')
     % xline(32)
 end
 savefigas(gcf, "../images/misc001-E-002_02_exampleFitRabi.png")
